@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oussama Yazbek-Jamal — Software Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEDE7;
+    --paper-2:#E7E3D8;
+    --ink:#1B2A4A;
+    --ink-soft:#2C3E63;
+    --rubric:#A63D2F;
+    --rubric-soft:#C4573F;
+    --muted:#63697A;
+    --line:#D3CFC2;
+    --tint:#E6E9EF;
+    --white:#FBFAF7;
+    --serif: 'IBM Plex Serif', serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --arabic: 'IBM Plex Sans Arabic', sans-serif;
+    --mono: 'IBM Plex Mono', monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--rubric); color:var(--white);}
+  a{color:inherit;}
+  img{max-width:100%; display:block;}
+
+  .wrap{max-width:1080px; margin:0 auto; padding:0 28px;}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(239,237,231,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:16px; padding-bottom:16px;}
+  .nav-mark{font-family:var(--serif); font-weight:600; font-size:1.05rem; letter-spacing:0.01em;}
+  .nav-links{display:flex; gap:28px; font-size:0.88rem; font-weight:500;}
+  .nav-links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+  .nav-links a:hover{color:var(--rubric);}
+  @media (max-width:640px){ .nav-links{gap:16px; font-size:0.8rem;} }
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:64px 0 40px;}
+  .hero-grid{display:grid; grid-template-columns:1fr; gap:48px;}
+  @media (min-width:920px){ .hero-grid{grid-template-columns: 0.95fr 1.05fr; align-items:start; gap:56px;} }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--rubric); margin-bottom:14px; display:inline-block;
+  }
+  h1.name{
+    font-family:var(--serif); font-weight:600; font-size:clamp(2.1rem, 5vw, 3.05rem);
+    line-height:1.08; letter-spacing:-0.01em; margin-bottom:14px;
+  }
+  .role{font-size:1.05rem; color:var(--ink-soft); font-weight:500; margin-bottom:20px;}
+  .lede{font-size:1rem; color:var(--muted); max-width:46ch; margin-bottom:28px;}
+
+  .links-row{display:flex; flex-wrap:wrap; gap:10px 18px; font-size:0.88rem; font-family:var(--mono);}
+  .links-row a{
+    text-decoration:none; color:var(--ink); border-bottom:1px solid var(--ink);
+    padding-bottom:1px; transition: color .15s, border-color .15s;
+  }
+  .links-row a:hover{color:var(--rubric); border-color:var(--rubric);}
+
+  /* ---------- GLOSS DEMO ---------- */
+  .gloss-panel{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:2px;
+    padding:26px 26px 22px;
+    box-shadow: 0 1px 0 var(--line);
+  }
+  .gloss-panel-head{
+    display:flex; align-items:baseline; justify-content:space-between; margin-bottom:16px;
+    border-bottom:1px solid var(--line); padding-bottom:12px;
+  }
+  .gloss-title{font-family:var(--mono); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);}
+  .gloss-title b{color:var(--ink); font-style:normal;}
+  .gloss-live-dot{
+    display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--rubric);
+    margin-right:6px; animation:pulse 2s infinite;
+  }
+  @keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.35;}}
+
+  .word-picker{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:20px;}
+  .word-chip{
+    font-family:var(--arabic); font-size:1.05rem;
+    background:var(--tint); border:1px solid var(--line); border-radius:3px;
+    padding:6px 14px; cursor:pointer; color:var(--ink-soft);
+    transition: background .15s, border-color .15s, color .15s;
+  }
+  .word-chip:hover{border-color:var(--ink-soft);}
+  .word-chip.active{background:var(--ink); color:var(--white); border-color:var(--ink);}
+
+  .free-type-row{display:flex; gap:8px; margin-bottom:22px;}
+  .free-type-row input{
+    flex:1; font-family:var(--arabic); font-size:1.15rem; direction:rtl; text-align:right;
+    padding:9px 14px; border:1px solid var(--line); border-radius:3px; background:var(--paper);
+    color:var(--ink);
+  }
+  .free-type-row input:focus{outline:none; border-color:var(--rubric);}
+  .free-type-row button{
+    font-family:var(--mono); font-size:0.78rem; letter-spacing:0.04em; text-transform:uppercase;
+    background:var(--ink); color:var(--white); border:none; border-radius:3px; padding:0 18px;
+    cursor:pointer; transition:background .15s;
+  }
+  .free-type-row button:hover{background:var(--rubric);}
+
+  .gloss-stage{min-height:150px;}
+  .gloss-word-display{
+    font-family:var(--arabic); font-size:2.6rem; direction:rtl; text-align:center;
+    margin-bottom:6px; color:var(--ink); letter-spacing:0.01em;
+  }
+  .gloss-morphemes{
+    display:flex; justify-content:center; gap:2px; direction:rtl; margin-bottom:22px; flex-wrap:wrap;
+  }
+  .morph{
+    font-family:var(--arabic); font-size:1.3rem; padding:2px 4px; border-radius:2px;
+    opacity:0; transform:translateY(6px); animation: rise .35s forwards;
+  }
+  .morph.prefix{color:var(--rubric); background:rgba(166,61,47,0.08);}
+  .morph.stem{color:var(--ink); font-weight:600;}
+  .morph.suffix{color:var(--ink-soft); background:rgba(44,62,99,0.08);}
+  @keyframes rise{to{opacity:1; transform:translateY(0);}}
+
+  .gloss-rows{display:grid; grid-template-columns: 130px 1fr; row-gap:9px; column-gap:14px; font-size:0.86rem;}
+  .gloss-rows dt{font-family:var(--mono); color:var(--muted); text-transform:uppercase; font-size:0.7rem; letter-spacing:0.06em; padding-top:2px;}
+  .gloss-rows dd{color:var(--ink-soft);}
+  .tag{
+    display:inline-block; font-family:var(--mono); font-size:0.72rem;
+    background:var(--tint); color:var(--ink-soft); padding:2px 8px; border-radius:2px; margin:0 4px 4px 0;
+  }
+  .tag.pos{background:var(--ink); color:var(--white);}
+  .gloss-note{
+    margin-top:16px; padding-top:14px; border-top:1px dashed var(--line);
+    font-size:0.8rem; color:var(--muted); font-style:italic;
+  }
+
+  /* ---------- SECTIONS ---------- */
+  section{padding:56px 0;}
+  .section-head{margin-bottom:34px;}
+  .section-label{
+    font-family:var(--mono); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--rubric); margin-bottom:10px;
+  }
+  h2{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,3vw,1.9rem); letter-spacing:-0.01em;}
+  .section-sub{color:var(--muted); font-size:0.95rem; margin-top:8px; max-width:60ch;}
+
+  .manifesto{
+    border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
+    padding:28px 0;
+  }
+  .manifesto ul{list-style:none;}
+  .manifesto li{
+    font-family:var(--serif); font-size:clamp(1.05rem,2.2vw,1.3rem); line-height:1.5;
+    padding:10px 0; border-bottom:1px solid var(--line);
+    display:flex; gap:18px; align-items:baseline;
+  }
+  .manifesto li:last-child{border-bottom:none;}
+  .manifesto li .m-idx{
+    font-family:var(--mono); font-size:0.78rem; color:var(--rubric); flex-shrink:0; width:24px;
+  }
+
+  /* ---------- PROJECT ---------- */
+  .project{padding:58px 0; border-top:1px solid var(--line);}
+  .project-head{display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:6px;}
+  .project-name{font-family:var(--serif); font-weight:600; font-size:clamp(1.5rem,3.4vw,2.05rem);}
+  .project-kind{font-family:var(--mono); font-size:0.78rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em;}
+  .project-desc{color:var(--ink-soft); max-width:70ch; margin:16px 0 22px; font-size:1rem;}
+
+  .stack-row{display:flex; flex-wrap:wrap; gap:8px; margin-bottom:30px;}
+  .stack-pill{
+    font-family:var(--mono); font-size:0.76rem; border:1px solid var(--line); border-radius:20px;
+    padding:5px 13px; color:var(--ink-soft); background:var(--white);
+  }
+
+  .highlights{list-style:none; display:grid; gap:12px; margin-bottom:34px;}
+  .highlights li{
+    display:grid; grid-template-columns:20px 1fr; gap:12px; font-size:0.94rem; color:var(--ink-soft);
+    align-items:start;
+  }
+  .highlights li::before{content:"—"; color:var(--rubric); font-family:var(--mono);}
+
+  .shot-strip{display:grid; grid-template-columns:1fr; gap:16px;}
+  @media (min-width:760px){ .shot-strip{grid-template-columns:1fr 1fr;} }
+  .shot{
+    border:1px solid var(--line); background:var(--white); padding:8px;
+    border-radius:2px;
+  }
+  .shot img{border-radius:1px; display:block;}
+  .shot-cap{
+    font-family:var(--mono); font-size:0.72rem; color:var(--muted); padding:8px 4px 2px;
+  }
+
+  .pattern-table{width:100%; border-collapse:collapse; font-family:var(--mono); font-size:0.82rem; margin-top:6px;}
+  .pattern-table th{
+    text-align:left; font-weight:500; text-transform:uppercase; letter-spacing:0.05em; font-size:0.68rem;
+    color:var(--muted); padding:8px 10px; border-bottom:1px solid var(--ink);
+  }
+  .pattern-table td{padding:8px 10px; border-bottom:1px solid var(--line); color:var(--ink-soft);}
+  .pattern-table td:first-child{font-family:var(--arabic); font-size:1rem; direction:rtl; color:var(--ink);}
+  .pattern-note{font-size:0.82rem; color:var(--muted); margin-top:10px; font-style:italic;}
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid; grid-template-columns:1fr; gap:22px;}
+  @media (min-width:760px){ .skills-grid{grid-template-columns:1fr 1fr;} }
+  .skill-group-label{font-family:var(--mono); font-size:0.74rem; text-transform:uppercase; letter-spacing:0.06em; color:var(--rubric); margin-bottom:8px;}
+  .skill-items{display:flex; flex-wrap:wrap; gap:7px;}
+  .skill-items span{
+    font-size:0.86rem; background:var(--white); border:1px solid var(--line); border-radius:3px;
+    padding:4px 10px; color:var(--ink-soft);
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1px solid var(--ink); padding:40px 0 50px;}
+  .footer-grid{display:flex; flex-wrap:wrap; justify-content:space-between; gap:24px; align-items:flex-end;}
+  .footer-name{font-family:var(--serif); font-size:1.2rem; font-weight:600;}
+  .footer-tag{color:var(--muted); font-size:0.86rem; margin-top:4px;}
+  .footer-links{display:flex; gap:20px; font-family:var(--mono); font-size:0.82rem;}
+  .footer-links a{text-decoration:none; border-bottom:1px solid var(--muted); padding-bottom:1px;}
+  .footer-links a:hover{color:var(--rubric); border-color:var(--rubric);}
+
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
+    html{scroll-behavior:auto;}
+  }
+
+  :focus-visible{outline:2px solid var(--rubric); outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">OYJ</div>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Software Engineer</span>
+      <h1 class="name">Oussama<br>Yazbek-Jamal</h1>
+      <p class="role">Full-stack development &amp; applied AI/NLP</p>
+      <p class="lede">Computer Science graduate who builds systems that turn ambiguous input — a citizen's freeform report, a raw Arabic word — into structured, explainable output. Two projects below, one shared instinct: never guess silently.</p>
+      <div class="links-row">
+        <a href="mailto:oussamayazbekjamal@gmail.com">oussamayazbekjamal@gmail.com</a>
+        <a href="#" target="_blank">LinkedIn</a>
+        <a href="https://github.com/OussamaYazbekJamal" target="_blank">GitHub</a>
+        <a href="#" target="_blank">Resume ↓</a>
+      </div>
+    </div>
+
+    <div class="gloss-panel">
+      <div class="gloss-panel-head">
+        <span class="gloss-title"><span class="gloss-live-dot"></span>Live demo — <b>Arabic morphological analyzer</b></span>
+      </div>
+
+      <div class="word-picker" id="wordPicker"></div>
+
+      <div class="free-type-row">
+        <input type="text" id="freeInput" placeholder="أو اكتب كلمة عربية…" maxlength="20">
+        <button id="analyzeBtn">Analyze</button>
+      </div>
+
+      <div class="gloss-stage" id="stage"></div>
+    </div>
+  </div>
+</header>
+
+<section class="wrap">
+  <div class="manifesto">
+    <ul>
+      <li><span class="m-idx">01</span>Take messy real-world input — freeform text, unvowelled Arabic — and impose real structure on it.</li>
+      <li><span class="m-idx">02</span>Prefer explainable rules over black boxes; use ML only where rules genuinely run out.</li>
+      <li><span class="m-idx">03</span>Never let automation have the final word — a human can always override it.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="projects" class="wrap">
+  <div class="section-head">
+    <span class="section-label">Selected Work</span>
+    <h2>Two systems, one instinct</h2>
+    <p class="section-sub">A full-stack civic platform that leans on fine-tuned pretrained models, and an NLP pipeline built from first principles with no pretrained model in its core. Different tools, same underlying discipline.</p>
+  </div>
+</section>
+
+<article class="project wrap">
+  <div class="project-head">
+    <span class="project-name">InfraWatch</span>
+    <span class="project-kind">Senior Project · Full-Stack + Applied ML</span>
+  </div>
+  <p class="project-desc">A civic infrastructure reporting platform for Lebanon that shifts data ownership from one central authority to the municipalities themselves. Citizens report problems across six categories, assisted by AI severity suggestion, image classification, and location extraction — while final judgment always stays with a human. Validated end-to-end across three real demonstration regions. <a href="https://github.com/OussamaYazbekJamal/infrawatch" target="_blank" style="color:var(--rubric); text-decoration:none; border-bottom:1px solid var(--rubric);">View on GitHub →</a></p>
+
+  <div class="stack-row">
+    <span class="stack-pill">React</span>
+    <span class="stack-pill">Node.js / Express</span>
+    <span class="stack-pill">PostgreSQL · Supabase</span>
+    <span class="stack-pill">JWT Auth</span>
+    <span class="stack-pill">XLM-RoBERTa</span>
+    <span class="stack-pill">MobileNetV2</span>
+    <span class="stack-pill">Hybrid Gazetteer + NER</span>
+    <span class="stack-pill">Leaflet</span>
+  </div>
+
+  <ul class="highlights">
+    <li>Four distinct roles — Citizen, Org Staff, Org Lead, Admin — with jurisdiction-scoped data ownership, not a single flat permission model.</li>
+    <li>Three ML components integrated into a working product: multilingual urgency classification, fine-tuned road-damage image classification (~0.78 macro F1 on RDD2022), and hybrid gazetteer + NER location extraction across Arabic, English, and French.</li>
+    <li>Diagnosed multiple real failure modes in an early jurisdiction-matching system and unified the fix into one shared resolution function, reused identically on both the citizen and organization side.</li>
+    <li>Conservative three-signal duplicate-report detection, and a fail-soft AI layer — every automated suggestion stays fully overridable.</li>
+  </ul>
+
+  <div class="shot-strip">
+    <figure class="shot">
+      <img src="img/Home1-Ghost_and_Citizen_mode.jpg" alt="InfraWatch home page showing category shortcuts">
+      <figcaption class="shot-cap">Home — category overview, signed-out and signed-in views</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="img/LiveMap-Ghost_and_Citizen.jpg" alt="InfraWatch live map showing active reports geographically">
+      <figcaption class="shot-cap">Live Map — active reports and infrastructure, plotted geographically</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="img/ReportingSampleCompleted.jpg" alt="Completed report submission showing AI severity suggestion">
+      <figcaption class="shot-cap">Report submission — AI severity suggestion, always citizen-editable</figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="img/Admin_Reports_tab.jpg" alt="Admin dashboard showing platform-wide report visibility">
+      <figcaption class="shot-cap">Admin — platform-wide report visibility across all regions</figcaption>
+    </figure>
+  </div>
+</article>
+
+<article class="project wrap">
+  <div class="project-head">
+    <span class="project-name">Arabic Morphological Analyzer &amp; Parser</span>
+    <span class="project-kind">Computational Linguistics</span>
+  </div>
+  <p class="project-desc">An Arabic NLP pipeline built from first principles — normalization, tokenization, morphological analysis, lemmatization, root extraction, POS tagging, and full syntactic parsing. No pretrained model sits in the core pipeline: the system reasons about Arabic's root-and-pattern morphology directly, and only reaches for a small trained classifier when its own rules run out. Try it live above — every word you type runs the real rule-based analyzer in your browser. <a href="https://github.com/OussamaYazbekJamal/arabic-morphological-analyzer" target="_blank" style="color:var(--rubric); text-decoration:none; border-bottom:1px solid var(--rubric);">View on GitHub →</a></p>
+
+  <div class="stack-row">
+    <span class="stack-pill">Python</span>
+    <span class="stack-pill">PyArabic</span>
+    <span class="stack-pill">scikit-learn</span>
+    <span class="stack-pill">NLTK</span>
+    <span class="stack-pill">Rule-based morphology</span>
+  </div>
+
+  <ul class="highlights">
+    <li>Extracts Arabic's non-concatenative root-and-pattern morphology by converting words to consonant/vowel structural templates and matching against 10+ known verb-form and participle patterns.</li>
+    <li>Handles what most NLP tooling skips: broken (irregular) plural lemmatization, pronoun-clitic stripping, and prefix/suffix disambiguation.</li>
+    <li>A hybrid rule + ML POS tagger falls back to a trained classifier only when the rule-based tagger is genuinely uncertain — and explains its own reasoning for every decision.</li>
+    <li>Parses both valid Arabic word orders — VSO and SVO — into correctly structured NLTK constituency trees (NP / VP / PP).</li>
+  </ul>
+
+  <table class="pattern-table">
+    <thead>
+      <tr><th>Pattern</th><th>Structure</th><th>Identifies</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>فاعل</td><td>CVCVC</td><td>Active participle</td></tr>
+      <tr><td>مفعول</td><td>CCVCVC</td><td>Passive participle</td></tr>
+      <tr><td>استفعل</td><td>VCCCVCC</td><td>Form X verb</td></tr>
+      <tr><td>تفاعل</td><td>CVCVCC</td><td>Form VI verb</td></tr>
+      <tr><td>فعيل</td><td>CVCVC</td><td>Adjective-like noun</td></tr>
+    </tbody>
+  </table>
+  <p class="pattern-note">A sample of the ~11 morphological templates the analyzer matches against — Arabic derives meaning from consonant-vowel patterns layered onto a root, not just concatenated affixes.</p>
+</article>
+
+<section id="skills" class="wrap">
+  <div class="section-head">
+    <span class="section-label">Toolkit</span>
+    <h2>Technical skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div>
+      <div class="skill-group-label">Languages</div>
+      <div class="skill-items"><span>JavaScript</span><span>Python</span><span>SQL</span><span>HTML/CSS</span></div>
+    </div>
+    <div>
+      <div class="skill-group-label">Frontend</div>
+      <div class="skill-items"><span>React</span><span>React Router</span><span>React-Leaflet</span></div>
+    </div>
+    <div>
+      <div class="skill-group-label">Backend</div>
+      <div class="skill-items"><span>Node.js</span><span>Express</span><span>REST API design</span><span>JWT Auth</span></div>
+    </div>
+    <div>
+      <div class="skill-group-label">Database</div>
+      <div class="skill-items"><span>PostgreSQL</span><span>Supabase</span></div>
+    </div>
+    <div>
+      <div class="skill-group-label">ML / NLP</div>
+      <div class="skill-items"><span>Hugging Face Transformers</span><span>CNN fine-tuning</span><span>scikit-learn</span><span>NLTK</span><span>PyArabic</span><span>Arabic computational morphology</span></div>
+    </div>
+    <div>
+      <div class="skill-group-label">Tools</div>
+      <div class="skill-items"><span>Git</span><span>Postman</span><span>Google Maps API</span><span>OpenStreetMap / Overpass</span></div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap footer-grid">
+    <div>
+      <div class="footer-name">Oussama Yazbek-Jamal</div>
+      <div class="footer-tag">Lebanon · Open to software engineering &amp; applied AI/NLP roles</div>
+    </div>
+    <div class="footer-links">
+      <a href="mailto:oussamayazbekjamal@gmail.com">Email</a>
+      <a href="#" target="_blank">LinkedIn</a>
+      <a href="https://github.com/OussamaYazbekJamal" target="_blank">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   Rule-based Arabic morphological analyzer — ported client-side
+   from the original Python pipeline (prefix/suffix extraction,
+   pattern detection, root extraction, rule-based POS tagging).
+   The ML fallback used in the full Python system for genuinely
+   ambiguous POS cases is not ported here — this demo runs the
+   rule-based stage only, exactly as it behaves before that
+   fallback is ever triggered.
+============================================================ */
+const PREFIXES = {
+  "ال": "definite article", "و": "conjunction", "ف": "conjunction",
+  "ب": "preposition", "ك": "preposition", "ل": "preposition", "س": "future marker"
+};
+const SUFFIXES = {
+  "ون": "plural masc.", "ين": "plural masc./dual", "ات": "plural fem.",
+  "ان": "dual", "وا": "verb, past plural", "ت": "past tense",
+  "ن": "fem. plural", "هم": "pronoun clitic", "كم": "pronoun clitic",
+  "نا": "pronoun clitic", "ها": "pronoun clitic", "ه": "pronoun clitic"
+};
+const PATTERNS = {
+  "فاعل": "active participle", "مفعول": "passive participle",
+  "تفعيل": "verbal noun (form II)", "افتعل": "form VIII",
+  "فعّل": "form II, intensive", "انفعل": "form VII",
+  "استفعل": "form X", "تفاعل": "form VI",
+  "فعول": "intensive noun", "مفعل": "noun of place/time", "فعيل": "adjective-like"
+};
+const IRREGULAR_LEMMAS = {
+  "مدارس":"مدرسه","رجال":"رجل","نساء":"امراه","كتب":"كتاب","أقلام":"قلم",
+  "بيوت":"بيت","أصدقاء":"صديق","أطباء":"طبيب","طلاب":"طالب","أولاد":"ولد",
+  "الطلاب":"طالب","المدارس":"مدرسه"
+};
+const VOWELS = new Set(["ا","و","ي"]);
+
+function extractPrefix(word){
+  for (const p in PREFIXES){
+    if (word.startsWith(p)) return {prefix:p, type:PREFIXES[p], rest:word.slice(p.length)};
+  }
+  return {prefix:null, type:null, rest:word};
+}
+function extractSuffix(word){
+  const keys = Object.keys(SUFFIXES).sort((a,b)=>b.length-a.length);
+  for (const s of keys){
+    if (word.endsWith(s) && word.length > s.length) return {suffix:s, type:SUFFIXES[s], rest:word.slice(0, -s.length)};
+  }
+  return {suffix:null, type:null, rest:word};
+}
+function structureOf(s){
+  return [...s].map(ch => VOWELS.has(ch) ? "V" : "C").join("");
+}
+function detectPattern(stem){
+  if (!stem) return {pattern:null, type:null};
+  const st = structureOf(stem);
+  for (const p in PATTERNS){
+    if (structureOf(p) === st) return {pattern:p, type:PATTERNS[p]};
+  }
+  return {pattern:null, type:null};
+}
+function featuresOf(prefix, suffix){
+  const f = [];
+  if (prefix === "ال") f.push("definite");
+  if (suffix === "ون" || suffix === "ين") f.push("plural masc.");
+  if (suffix === "ان") f.push("dual");
+  if (suffix === "ات") f.push("plural fem.");
+  if (suffix === "ت" || suffix === "وا") f.push("past tense");
+  if (suffix === "ن") f.push("fem. plural");
+  if (["هم","كم","نا","ها","ه"].includes(suffix)) f.push("pronoun clitic");
+  return f;
+}
+const KNOWN_NOUNS = new Set(["يوم","يد","يوسف","ياسمين","يمن","يمنى"]);
+const PART_WORDS = new Set(["إلى","في","من","على","عن","حتى"]);
+
+function guessPOS(prefix, prefixType, suffix, stem, patternType, word){
+  if (suffix === "وا" || suffix === "ت") return "VERB";
+  if (prefix === "س") return "VERB";
+  if (["ي","ت","ن","أ"].includes(word[0]) && stem.length >= 3 && !KNOWN_NOUNS.has(word)) return "VERB";
+  if (patternType === "active participle" || patternType === "passive participle"){
+    if (word.startsWith("ال") || ["ون","ين","ات"].includes(suffix)) return "NOUN";
+    return "ADJ";
+  }
+  if (prefix === "ك" && ["كأن","كل","كما"].includes(word)) return "PART";
+  if (prefixType === "conjunction" || prefixType === "preposition"){
+    if (word.length <= 2 || stem.length <= 2) return "PART";
+  }
+  if (PART_WORDS.has(word)) return "PART";
+  return "NOUN";
+}
+function extractRoot(stem){
+  let core = [...stem].filter(c => !VOWELS.has(c)).join("");
+  if (core.length < 2) core = stem;
+  return core.split("").join("-") || "—";
+}
+function analyze(raw){
+  const word = raw.trim();
+  if (!word) return null;
+  const {prefix, type:prefixType, rest:afterPrefix} = extractPrefix(word);
+  const {suffix, type:suffixType, rest:stem} = extractSuffix(afterPrefix);
+  const {pattern, type:patternType} = detectPattern(stem);
+  const features = featuresOf(prefix, suffix);
+  const lemma = IRREGULAR_LEMMAS[word] || stem;
+  const irregular = !!IRREGULAR_LEMMAS[word];
+  const pos = guessPOS(prefix, prefixType, suffix, stem, patternType, word);
+  const root = extractRoot(lemma);
+  return {word, prefix, prefixType, suffix, suffixType, stem, pattern, patternType, features, lemma, irregular, pos, root};
+}
+
+const SAMPLE_WORDS = ["الطلاب","كتبوا","المدارس","يعملون","الكبير","مكتوب","جميل","بالمدارس"];
+
+const picker = document.getElementById('wordPicker');
+SAMPLE_WORDS.forEach((w, i) => {
+  const chip = document.createElement('button');
+  chip.className = 'word-chip' + (i===0 ? ' active' : '');
+  chip.textContent = w;
+  chip.setAttribute('type','button');
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.word-chip').forEach(c=>c.classList.remove('active'));
+    chip.classList.add('active');
+    render(w);
+  });
+  picker.appendChild(chip);
+});
+
+document.getElementById('analyzeBtn').addEventListener('click', () => {
+  const v = document.getElementById('freeInput').value;
+  if (v.trim()) {
+    document.querySelectorAll('.word-chip').forEach(c=>c.classList.remove('active'));
+    render(v);
+  }
+});
+document.getElementById('freeInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('analyzeBtn').click();
+});
+
+function render(word){
+  const a = analyze(word);
+  const stage = document.getElementById('stage');
+  if (!a){ stage.innerHTML = ''; return; }
+
+  const segs = [];
+  if (a.prefix) segs.push(`<span class="morph prefix" style="animation-delay:0s">${a.prefix}</span>`);
+  segs.push(`<span class="morph stem" style="animation-delay:0.08s">${a.stem || a.word}</span>`);
+  if (a.suffix) segs.push(`<span class="morph suffix" style="animation-delay:0.16s">${a.suffix}</span>`);
+
+  const featTags = a.features.length
+    ? a.features.map(f=>`<span class="tag">${f}</span>`).join('')
+    : '<span class="tag">none detected</span>';
+
+  stage.innerHTML = `
+    <div class="gloss-word-display">${a.word}</div>
+    <div class="gloss-morphemes">${segs.join('')}</div>
+    <dl class="gloss-rows">
+      <dt>Prefix</dt><dd>${a.prefix ? `${a.prefix} — ${a.prefixType}` : '<em>none</em>'}</dd>
+      <dt>Suffix</dt><dd>${a.suffix ? `${a.suffix} — ${a.suffixType}` : '<em>none</em>'}</dd>
+      <dt>Stem</dt><dd>${a.stem || '<em>—</em>'}</dd>
+      <dt>Pattern</dt><dd>${a.pattern ? `${a.pattern} — ${a.patternType}` : '<em>no template match</em>'}</dd>
+      <dt>Lemma</dt><dd>${a.lemma}${a.irregular ? ' <span class="tag">irregular</span>' : ''}</dd>
+      <dt>Root</dt><dd>${a.root}</dd>
+      <dt>Features</dt><dd>${featTags}</dd>
+      <dt>POS (rule)</dt><dd><span class="tag pos">${a.pos}</span></dd>
+    </dl>
+    <p class="gloss-note">Rule-based stage only — the full Python pipeline adds an ML fallback for cases this stage leaves genuinely ambiguous.</p>
+  `;
+}
+
+render(SAMPLE_WORDS[0]);
+</script>
+
+</body>
+</html>
